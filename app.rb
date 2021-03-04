@@ -33,10 +33,17 @@ post '/visit' do
 	@title = 'Thank you'
 	@message = "Dear #{@user_name}, you'r visit is date #{@date_visit}, time #{@time_visit}"
 
-	f = File.open "./public/barbertest.txt", "a"
+	f = File.open "./public/appointment.txt", "a"
 	f.write " Name - #{@user_name}, phone number #{@user_phone}, date visit #{@date_visit}, time visit #{@time_visit}\n"
+	f.close
+
+	f = File.open "./public/contacts.txt", "a"
+	f.write " Name - #{@user_name}, phone number #{@user_phone} 	\n"
 	f.close
 
 	erb :message
 end
 
+post '/contacts' do
+
+end
