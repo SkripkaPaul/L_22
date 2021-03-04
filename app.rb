@@ -26,12 +26,15 @@ end
 post '/visit' do
 
 	@user_name = params[:username]
-	
+	@user_phone = params[:userphone]
+	@date_visit = params[:datevisit]
+	@time_visit = params[:timevisit]
+
 	@title = 'Thank you'
-	@message = "Dear #{@user_name} congratulation!"
+	@message = "Dear #{@user_name}, you'r visit is date #{@date_visit}, time #{@time_visit}"
 
 	f = File.open "./public/barbertest.txt", "a"
-	f.write " Name - #{@user_name}\n"
+	f.write " Name - #{@user_name}, phone number #{@user_phone}, date visit #{@date_visit}, time visit #{@time_visit}\n"
 	f.close
 
 	erb :message
