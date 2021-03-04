@@ -22,3 +22,18 @@ end
 get '/something' do
 	erb :something
 end
+
+post '/visit' do
+
+	@user_name = params[:username]
+	
+	@title = 'Thank you'
+	@message = "Dear #{@user_name} congratulation!"
+
+	f = File.open "./public/barbertest.txt", "a"
+	f.write " Name - #{@user_name}\n"
+	f.close
+
+	erb :message
+end
+
