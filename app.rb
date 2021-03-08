@@ -5,10 +5,18 @@ require 'sinatra/reloader'
 
 get '/' do
 	erb "Hello!!! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
+
 end
 
 get '/about' do
 	erb :about
+end
+
+get '/admin' do
+
+	@f = File.read "./public/appointment.txt"
+
+	erb :admin
 end
 
 get '/visit' do 
@@ -58,3 +66,29 @@ post '/contacts' do
 	erb :contacts 
 
 end
+
+post '/admin' do
+
+	@login = params[:login]
+	@password = params[:password]
+	
+	@title = 'Congratulation'
+	@message = 'You in admin room'
+
+	if @login == 'admin' && @password == 'secret' 
+	
+	erb :message
+	else
+	'Wrong password or login'
+	end
+
+end
+
+
+
+
+
+
+
+
+
