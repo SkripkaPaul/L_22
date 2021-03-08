@@ -30,11 +30,13 @@ post '/visit' do
 	@date_visit = params[:datevisit]
 	@time_visit = params[:timevisit]
 
+	@barber = params[:barbers]
+
 	@title = 'Thank you'
-	@message = "Dear #{@user_name}, you'r visit is date #{@date_visit}, time #{@time_visit}"
+	@message = "Dear #{@user_name}, you'r visit is date #{@date_visit}, time #{@time_visit} you'r barber is #{@barber}"
 
 	f = File.open "./public/appointment.txt", "a"
-	f.write " Name - #{@user_name}, phone number #{@user_phone}, date visit #{@date_visit}, time visit #{@time_visit}\n"
+	f.write " Name - #{@user_name}, phone number #{@user_phone}, date visit #{@date_visit}, time visit #{@time_visit} barber - #{@barber}\n"
 	f.close
 
 	f = File.open "./public/contacts.txt", "a"
@@ -45,5 +47,14 @@ post '/visit' do
 end
 
 post '/contacts' do
+
+	@user_name = params[:username]
+	@user_reviews = params[:reviews]
+
+	f = File.open "./public/reviews.txt", "a"
+	f.write " Name - #{@user_name},\n отзыв #{@user_reviews} \n"
+	f.close
+
+	erb :contacts 
 
 end

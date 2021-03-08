@@ -9,7 +9,20 @@
 
 </h4>
 
+	<form action="/contacts" method="POST" role ="form">
+
+	 <div class="mb-3">
+    <label  class="form-label">Введите ваше имя</label>
+    <input  type="text" name="username" class="form-control" placeholder ="ваше имя">
+</div> <br>
+
 	<div class="form-floating">
-	  <textarea class="form-control" placeholder="Вы можете оставить здесь ваш комментарий" id="floatingTextarea"></textarea>
-	  <label for="floatingTextarea">Комментарии</label>
+	  <textarea class="form-control" name="reviews" placeholder="Вы можете оставить здесь ваш отзыв" id="floatingTextarea"></textarea>
+	  <label for="floatingTextarea">Отзывы</label>
 	</div>
+
+<button type="submit" class="btn btn-primary">Отзыв</button>	
+
+<br>
+<a href="C:\Project\L_22\public\reviews.txt">Ост</a>
+

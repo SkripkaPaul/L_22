@@ -3,6 +3,7 @@
 
 <form action="/visit" method="POST" role ="form">
 
+	
   <div class="mb-3">
     <label  class="form-label">Введите ваше имя</label>
     <input  type="text" name="username" class="form-control" placeholder ="имя">
@@ -22,6 +23,14 @@
     <label  class="form-label">Укажите время записи</label>
     <input  type="text" name="timevisit" class="form-control" placeholder ="время">
 </div> <br>
+
+<select class="form-select" aria-label="Default select example">
+  <option selected>Выберете парикмахера</option>
+  <option value="Walter_White">Walter White</option>
+  <option value="Jessie Pinkman">Jessie Pinkman</option> 
+  <option value="Gus Fing">Gas Fing</option>
+   </select> <br>
+<br>
 
   <button type="submit" class="btn btn-primary">Записаться</button>
 
