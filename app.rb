@@ -40,8 +40,10 @@ post '/visit' do
 
 	@barber = params[:barbers]
 
+	@colorpicker = params[:colorpicker]
+
 	@title = 'Thank you'
-	@message = "Dear #{@user_name}, you'r visit is date #{@date_visit}, time #{@time_visit} you'r barber is #{@barber}"
+	@message = "Dear #{@user_name}, you'r visit is date #{@date_visit}, time #{@time_visit} you'r barber is #{@barber}  you color is #{@colorpicker}"
 
 	f = File.open "./public/appointment.txt", "a"
 	f.write " Name - #{@user_name}, phone number #{@user_phone}, date visit #{@date_visit}, time visit #{@time_visit} barber - #{@barber}\n"

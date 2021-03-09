@@ -41,3 +41,4 @@
  Name - Paul, phone number 81112223344, date visit 06.03, time visit 06.03 barber - 
  Name - Paul, phone number 81112223344, date visit 06.03, time visit 06.03 barber - 
  Name - Paul, phone number 81112223344, date visit 06.03, time visit 06.03 barber - Walter White
+ Name - Paul, phone number 81112223344, date visit 06.03, time visit 06.03 barber - Walter_White
