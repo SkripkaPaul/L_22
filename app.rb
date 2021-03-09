@@ -40,22 +40,16 @@ post '/visit' do
 	@time_visit = params[:timevisit]
 	@barber = params[:barbers]
 
-	if @user_name == ''
-		@error = 'Укажите ваше имя'
-		return erb :visit
-	elsif @user_phone == ''
-		@error = 'Укажите номер телефона'
-		return erb :visit
-	elsif @date_visit == ''
-		@error = 'Укажите дату визита'
-		return erb :visit
-	elsif @time_visit == ''
-		@error = 'Укажите время визита'	
-		return erb :visit
-	elsif @barber == 'Выберете парикмахера'
-		@error = 'Укажите стилиста'
-		return erb :visit
-	end
+	hh = { 	:username => 'Укажите имя',
+			:userphone => 'Укажите номер телефона',
+			:datevisit => 'Укажите дату визита',
+			:timevisit => 'Укажите время визита'}
+
+			@error = hh.select {|key,_| params[key] == ""}.values.join (", ")
+
+			if @error != ""
+				return erb :visit
+			end
 
 	@colorpicker = params[:colorpicker]
 
