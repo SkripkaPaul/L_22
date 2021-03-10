@@ -14,8 +14,6 @@ end
 
 get '/admin' do
 
-	@f = File.read "./public/appointment.txt"
-
 	erb :admin
 end
 
@@ -54,15 +52,15 @@ post '/visit' do
 	@colorpicker = params[:colorpicker]
 
 	@title = 'Thank you'
-	@message = "Dear #{@user_name}, you'r visit is date #{@date_visit}, time #{@time_visit} you'r barber is #{@barber}  you color is #{@colorpicker}"
+	@second_message = "Dear #{@user_name}, you'r visit is date #{@date_visit}, time #{@time_visit} you'r barber is #{@barber}  you color is #{@colorpicker}"
 
-	f = File.open "./public/appointment.txt", "a"
-	f.write " Name - #{@user_name}, phone number #{@user_phone}, date visit #{@date_visit}, time visit #{@time_visit} barber - #{@barber}\n"
-	f.close
+	@f = File.open "./public/appointment.txt", "a"
+	@f.write " Name - #{@user_name}, phone number #{@user_phone}, date visit #{@date_visit}, time visit #{@time_visit} barber - #{@barber}\n"
+	@f.close
 
-	f = File.open "./public/contacts.txt", "a"
-	f.write " Name - #{@user_name}, phone number #{@user_phone} 	\n"
-	f.close
+	@f = File.open "./public/contacts.txt", "a"
+	@f.write " Name - #{@user_name}, phone number #{@user_phone} 	\n"
+	@f.close
 
 	erb :message
 end
@@ -72,9 +70,9 @@ post '/contacts' do
 	@user_name = params[:username]
 	@user_reviews = params[:reviews]
 
-	f = File.open "./public/reviews.txt", "a"
-	f.write " Name - #{@user_name},\n отзыв #{@user_reviews} \n"
-	f.close
+	@f = File.open "./public/reviews.txt", "a"
+	@f.write " Name - #{@user_name},\n отзыв #{@user_reviews} \n"
+	@f.close
 
 	erb :contacts 
 
@@ -85,8 +83,9 @@ post '/admin' do
 	@login = params[:login]
 	@password = params[:password]
 	
-	@title = 'Congratulation'
-	@message = 'You in admin room'
+	@title = 'You in admin room'
+	@first_message = 'Visit'
+	@second_message = File.read "./public/appointment.txt"
 
 	if @login == 'admin' && @password == 'secret' 
 	
