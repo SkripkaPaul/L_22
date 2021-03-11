@@ -2,6 +2,8 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
+require 'pony'
+
 
 get '/' do
 	erb "Hello!!! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
@@ -66,16 +68,26 @@ post '/visit' do
 end
 
 post '/contacts' do
-
-	@user_name = params[:username]
-	@user_reviews = params[:reviews]
-
-	@f = File.open "./public/reviews.txt", "a"
-	@f.write " Name - #{@user_name},\n отзыв #{@user_reviews} \n"
-	@f.close
-
-	erb :contacts 
-
+  @username = params[:username]
+  @message = params[:message]
+ 
+Pony.mail({
+  :to => 'xxxxxxxxxx@rambler.ru'	,
+  :from => 'ckripka222@gmail.com', 
+  :via => :smtp,
+  :subject => "Новое сообщение от пользователя #{@username}",
+  :body => "#{@message}",
+  :via_options => {
+    :address              => 'smtp.gmail.com',
+    :port                 => '587',
+    :enable_starttls_auto => true,
+    :user_name            => 'ckripka222',
+    :password             => 'xxxxxxxxxxxxxx',
+    :authentication       => :plain, 
+    :domain               => "localhost:4567" 
+  }
+})
+  erb :contacts
 end
 
 post '/admin' do
@@ -95,6 +107,7 @@ post '/admin' do
 	end
 
 end
+
 
 
 

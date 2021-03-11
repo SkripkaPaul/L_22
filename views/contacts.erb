@@ -1,27 +1,11 @@
-
-<h2> Контакты </h2>
-
-<h4> 
-
-	Контакты для связи 
-
-	+7 xxx xx xx
-
-</h4>
-
-	<form action="/contacts" method="POST" role ="form">
-
-	 <div class="mb-3">
-    <label  class="form-label">Введите ваше имя</label>
-    <input  type="text" name="username" class="form-control" placeholder ="ваше имя">
-</div> <br>
-
-	<div class="form-floating">
-	  <textarea class="form-control" name="reviews" placeholder="Вы можете оставить здесь ваш отзыв" id="floatingTextarea"></textarea>
-	  <label for="floatingTextarea">Отзывы</label>
-	</div>
-
-<button type="submit" class="btn btn-primary">Отзыв</button>	
-
-<br>
-
+<h2> Обратная связь </h2>
+ 
+<form action="/contacts" method="POST">
+<div class="form-group">
+  <label>Ваше имя:</label>
+  <input name="username" type="text" class="form-control" placeholder="Ваше имя">
+  <label for="comment">Текст обращения:</label>
+  <textarea name="message" class="form-control" rows="5" placeholder="Текст обращения"></textarea>
+</div>
+<button type="submit" class="btn btn-primary">Отправить</button>
+</form>
