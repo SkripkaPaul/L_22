@@ -3,6 +3,9 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'pony'
+require 'sqlite3'
+
+db = SQLite3::Database.new 'sqlusers.db'
 
 
 get '/' do
@@ -40,6 +43,7 @@ post '/visit' do
 	@time_visit = params[:timevisit]
 	@barber = params[:barbers]
 
+
 	hh = { 	:username => 'Укажите имя',
 			:userphone => 'Укажите номер телефона',
 			:datevisit => 'Укажите дату визита',
@@ -55,6 +59,12 @@ post '/visit' do
 
 	@title = 'Thank you'
 	@second_message = "Dear #{@user_name}, you'r visit is date #{@date_visit}, time #{@time_visit} you'r barber is #{@barber}  you color is #{@colorpicker}"
+
+	db.execute "insert into users (name, phone, date_visit, barber, color) values ('#{@user_name}', '#{@user_phone}', '#{@date_visit}', '#{@barber}', '#{@colorpicker}')"
+ 
+	db.close
+
+
 
 	@f = File.open "./public/appointment.txt", "a"
 	@f.write " Name - #{@user_name}, phone number #{@user_phone}, date visit #{@date_visit}, time visit #{@time_visit} barber - #{@barber}\n"
@@ -73,7 +83,7 @@ post '/contacts' do
  
 Pony.mail({
   :to => 'xxxxxxxxxx@rambler.ru'	,
-  :from => 'ckripka222@gmail.com', 
+  :from => 'zxc@gmail.com', 
   :via => :smtp,
   :subject => "Новое сообщение от пользователя #{@username}",
   :body => "#{@message}",
@@ -81,8 +91,8 @@ Pony.mail({
     :address              => 'smtp.gmail.com',
     :port                 => '587',
     :enable_starttls_auto => true,
-    :user_name            => 'ckripka222',
-    :password             => 'xxxxxxxxxxxxxx',
+    :user_name            => 'zxc',
+    :password             => 'zxc',
     :authentication       => :plain, 
     :domain               => "localhost:4567" 
   }
