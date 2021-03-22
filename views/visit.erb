@@ -26,9 +26,9 @@
 
 <select class="form-select" name="barbers" aria-label="Default select example">
   <option selected>Выберете парикмахера</option>
-  <option value="Walter_White">Walter White</option>
-  <option value="Jessie Pinkman">Jessie Pinkman</option> 
-  <option value="Gus Fing">Gas Fing</option>
+  <option <%= @barber ==  "Walter White" ? 'selected' : '' %>>Walter White</option>
+  <option <%= @barber ==  "Jessie Pinkman" ? 'selected' : '' %>>Jessie Pinkman</option> 
+  <option <%= @barber ==  "Gas Fing" ? 'selected' : '' %>>Gas Fing</option>
    </select> <br>
 <br>
 
