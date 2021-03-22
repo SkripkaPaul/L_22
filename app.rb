@@ -5,8 +5,18 @@ require 'sinatra/reloader'
 require 'pony'
 require 'sqlite3'
 
-db = SQLite3::Database.new 'sqlusers.db'
-
+configure do
+db = get_db
+db.execute 'CREATE TABLE IF NOT EXISTS "users" 
+		(
+			"id" INTEGER,
+			"name" TEXT,
+			"phone" INTEGER,
+			"date_visit" INTEGER,
+			"barber" TEXT, 
+			"color" TEXT, PRIMARY KEY("id" AUTOINCREMENT)
+			)'
+end
 
 get '/' do
 	erb "Hello!!! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
@@ -60,12 +70,18 @@ post '/visit' do
 	@title = 'Thank you'
 	@second_message = "Dear #{@user_name}, you'r visit is date #{@date_visit}, time #{@time_visit} you'r barber is #{@barber}  you color is #{@colorpicker}"
 
-	db.execute "insert into users (name, phone, date_visit, barber, color) values ('#{@user_name}', '#{@user_phone}', '#{@date_visit}', '#{@barber}', '#{@colorpicker}')"
- 
-	db.close
 
+	db = get_db
+	db.execute 'insert into users 
 
-
+			(
+			name, 
+			phone, 
+			date_visit, 
+			barber, 
+			color
+			) values (?,?,?,?,?)', [@user_name, @user_phone, @date_visit, @barber, @colorpicker]
+	
 	@f = File.open "./public/appointment.txt", "a"
 	@f.write " Name - #{@user_name}, phone number #{@user_phone}, date visit #{@date_visit}, time visit #{@time_visit} barber - #{@barber}\n"
 	@f.close
@@ -102,16 +118,19 @@ end
 
 post '/admin' do
 
+
+
 	@login = params[:login]
 	@password = params[:password]
 	
 	@title = 'You in admin room'
 	@first_message = 'Visit'
-	@second_message = File.read "./public/appointment.txt"
+	
 
 	if @login == 'admin' && @password == 'secret' 
 	
 	erb :message
+
 	else
 	'Wrong password or login'
 	end
@@ -119,8 +138,9 @@ post '/admin' do
 end
 
 
-
-
+def get_db
+	return SQLite3::Database.new 'sqlusers.db'
+end
 
 
 
