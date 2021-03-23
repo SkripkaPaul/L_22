@@ -5,9 +5,32 @@ require 'sinatra/reloader'
 require 'pony'
 require 'sqlite3'
 
+
+def is_barber_exists? db, name
+	db.execute('select * from barbers where name=?', [name]).length > 0
+end
+
+def seed_db db, barbers
+
+	barbers.each do |barber|
+
+		if !is_barber_exists? db, barber 
+			db.execute 'insert into barbers (name) values (?)', [barber]
+		end
+	end
+
+end
+
+def get_db
+	db = SQLite3::Database.new 'visit.db'
+	db.results_as_hash = true
+	return db 
+end
+
 configure do
+
 db = get_db
-db.execute 'CREATE TABLE IF NOT EXISTS "users" 
+db.execute 'CREATE TABLE IF NOT EXISTS "visit" 
 		(
 			"id" INTEGER,
 			"name" TEXT,
@@ -16,6 +39,15 @@ db.execute 'CREATE TABLE IF NOT EXISTS "users"
 			"barber" TEXT, 
 			"color" TEXT, PRIMARY KEY("id" AUTOINCREMENT)
 			)'
+
+db.execute 'CREATE TABLE IF NOT EXISTS "barbers" 
+		(
+			"id" INTEGER,
+			"name" TEXT,
+			 PRIMARY KEY("id" AUTOINCREMENT)
+			)'		
+
+seed_db db, ['Walter White', 'Jessie Pinkman', 'Gus Fring', 'Joe Trebiani']
 end
 
 get '/' do
@@ -72,7 +104,7 @@ post '/visit' do
 
 
 	db = get_db
-	db.execute 'insert into users 
+	db.execute 'insert into visit 
 
 			(
 			name, 
@@ -82,13 +114,13 @@ post '/visit' do
 			color
 			) values (?,?,?,?,?)', [@user_name, @user_phone, @date_visit, @barber, @colorpicker]
 	
-	@f = File.open "./public/appointment.txt", "a"
-	@f.write " Name - #{@user_name}, phone number #{@user_phone}, date visit #{@date_visit}, time visit #{@time_visit} barber - #{@barber}\n"
-	@f.close
+	# @f = File.open "./public/appointment.txt", "a"
+	# @f.write " Name - #{@user_name}, phone number #{@user_phone}, date visit #{@date_visit}, time visit #{@time_visit} barber - #{@barber}\n"
+	# @f.close
 
-	@f = File.open "./public/contacts.txt", "a"
-	@f.write " Name - #{@user_name}, phone number #{@user_phone} 	\n"
-	@f.close
+	# @f = File.open "./public/contacts.txt", "a"
+	# @f.write " Name - #{@user_name}, phone number #{@user_phone} 	\n"
+	# @f.close
 
 	erb :message
 end
@@ -124,23 +156,37 @@ post '/admin' do
 	@password = params[:password]
 	
 	@title = 'You in admin room'
+
 	@first_message = 'Visit'
+
 	
 
-	if @login == 'admin' && @password == 'secret' 
 	
-	erb :message
-
-	else
-	'Wrong password or login'
-	end
-
-end
+	db = get_db
+	
+	@one = db.execute 'SELECT * FROM visit ' 
+		
 
 
-def get_db
-	return SQLite3::Database.new 'sqlusers.db'
-end
+	erb :show
+end 
+
+	
+	
+
+	# if @login == 'admin' && @password == 'secret' 
+
+	
+	
+
+
+	# else
+	# 'Wrong password or login'
+	# end
+
+
+
+
 
 
 
