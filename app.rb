@@ -77,6 +77,13 @@ get '/something' do
 	erb :something
 end
 
+before do
+
+	db = get_db
+	@barb = db.execute 'SELECT * FROM barbers '  
+
+end
+
 post '/visit' do
 
 	@user_name = params[:username]
@@ -113,6 +120,9 @@ post '/visit' do
 			barber, 
 			color
 			) values (?,?,?,?,?)', [@user_name, @user_phone, @date_visit, @barber, @colorpicker]
+
+
+
 	
 	# @f = File.open "./public/appointment.txt", "a"
 	# @f.write " Name - #{@user_name}, phone number #{@user_phone}, date visit #{@date_visit}, time visit #{@time_visit} barber - #{@barber}\n"

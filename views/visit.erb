@@ -40,9 +40,16 @@ $(function (){
 
 <select class="form-select" name="barbers" aria-label="Default select example">
   <option selected>Выберете парикмахера</option>
-  <option <%= @barber == "Walter White" ? 'selected' : '' %>> Walter White</option>
-  <option <%= @barber ==  "Jessie Pinkman" ? 'selected' : '' %>>Jessie Pinkman</option> 
-  <option <%= @barber ==  "Gas Fing" ? 'selected' : '' %>>Gas Fing</option>
+
+
+  <!-- <option <% @barb == "name" ? 'selected' : '' %>> <%= @barb %> </option>
+ -->
+
+
+	<% @barb.each do |x| %>
+	<option <%= @barber == x['name'] ? 'selected' : ''  %>> <%= x['name'] %> </option>
+	<% end %>
+
    </select> <br>
 <br>
 
