@@ -1,6 +1,20 @@
 
 <h2> Записаться </h2>
 
+
+<script type="text/javascript">
+
+$(function (){
+
+	$('#color').simplecolorpicker();
+
+
+});
+
+	</script>
+
+
+
 <form action="/visit" method="POST" role ="form">
 
 	
@@ -14,19 +28,19 @@
     <input  type="text" name="userphone" class="form-control" placeholder ="номер телефона" value=<%=@user_phone%>>
 </div> <br>
 
-  <div class="mb-3">
-    <label  class="form-label">Укажите дату записи</label>
-    <input  type="text" name="datevisit" class="form-control" placeholder ="дата" value=<%=@date_visit%>>
+  <div class="form-group">
+    <label>Укажите дату записи</label>
+    <input   type="text" name="datevisit" class="form-control" placeholder ="дата" value=<%=@date_visit%>>
 </div> <br>
 
   <div class="mb-3">
     <label  class="form-label">Укажите время записи</label>
-    <input  type="text" name="timevisit" class="form-control" placeholder ="время" value=<%=@time_visit%>>
+    <input   type="text" name="timevisit" class="form-control" placeholder ="время" value=<%=@time_visit%>>
 </div> <br>
 
 <select class="form-select" name="barbers" aria-label="Default select example">
   <option selected>Выберете парикмахера</option>
-  <option <%= @barber ==  "Walter White" ? 'selected' : '' %>>Walter White</option>
+  <option <%= @barber == "Walter White" ? 'selected' : '' %>> Walter White</option>
   <option <%= @barber ==  "Jessie Pinkman" ? 'selected' : '' %>>Jessie Pinkman</option> 
   <option <%= @barber ==  "Gas Fing" ? 'selected' : '' %>>Gas Fing</option>
    </select> <br>
@@ -53,13 +67,5 @@
 
 </form>
 
-	<script type="text/javascript">
-
-
-$(function (){
-
-	$('#color').simplecolorpicker();
-});
-
-	</script>
+	
 
